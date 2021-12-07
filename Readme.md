@@ -1,6 +1,6 @@
-#Todo List App 
+# Todo List App 
 
-###Screeshoots
+### Screeshoots
 ## Home Page
 ![home](img/home.PNG)
 ## Register Page
