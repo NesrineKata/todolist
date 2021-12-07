@@ -46,7 +46,8 @@ export class RegisterPage implements OnInit {
     });
   }
 
-  tryRegister(value) {
+  register(value) {
+    console.log(value);
     this.authService.registerUser(value)
       .then(res => {
         console.log(res);
@@ -61,7 +62,7 @@ export class RegisterPage implements OnInit {
   }
 
   goLoginPage() {
-    this.navCtrl.navigateBack('');
+    this.navCtrl.navigateBack('/login');
   }
 
 

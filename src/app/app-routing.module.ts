@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
@@ -19,6 +19,22 @@ const routes: Routes = [
     path: 'register',
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
   },
+  {
+    path: 'resetpw',
+    loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+  },
+  {
+    path: 'todolist',
+    loadChildren: () => import('./todolist/todolist.module').then( m => m.TodolistPageModule)
+  },
+ /* {
+    path: 'todo',
+    loadChildren: () => import('./todo/todo.module').then( m => m.TodoPageModule)
+  },
+  {
+    path: 'done',
+    loadChildren: () => import('./done/done.module').then( m => m.DonePageModule)
+  },*/
 ];
 
 @NgModule({

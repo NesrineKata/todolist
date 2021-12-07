@@ -1,4 +1,4 @@
-<ion-header>
+<!--<ion-header>
   <ion-toolbar color="primary">
     <ion-title>Register</ion-title>
   </ion-toolbar>
@@ -39,4 +39,35 @@
     <label class="success-message">{{successMessage}}</label>
   </form>
   <p class="go-to-login">Already have an account? <a (click)="goLoginPage()">Try to Log In.</a></p>
+</ion-content>
+
+-->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form  #f="ngForm"  (ngSubmit)="register(f.value)">
+    <ion-item lines="full">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="text" ngModel name="email" required></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" ngModel name="password" required></ion-input>
+    </ion-item>
+
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="danger" expand="block">Sign Up</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
 </ion-content>

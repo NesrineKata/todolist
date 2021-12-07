@@ -50,18 +50,23 @@ export class LoginPage implements OnInit {
 
 
   loginUser(value) {
+    console.log(value);
     this.authService.loginUser(value)
       .then(res => {
         console.log(res);
         this.errorMessage = "";
-        this.navCtrl.navigateForward('/home');
+        this.navCtrl.navigateForward('/todolist');
       }, err => {
         this.errorMessage = err.message;
       })
+      
   }
 
   goToRegisterPage() {
     this.navCtrl.navigateForward('/register');
+  }
+  goToResetPwPage(){
+    this.navCtrl.navigateForward('/resetpw');
   }
 
 }

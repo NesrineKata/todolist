@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 export class AuthenticateService {
 
   constructor(
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private router: Router,
   ) { }
 
   registerUser(value) {
@@ -20,7 +22,14 @@ export class AuthenticateService {
     })
 
   }
+  resetPasswordInit(email: string) { 
+    return this.afAuth.sendPasswordResetEmail(email)
+    .then(data => {
+      console.log(data);
+      this.router.navigateByUrl('/login');
 
+    });
+  }
   loginUser(value) {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.signInWithEmailAndPassword(value.email, value.password)
