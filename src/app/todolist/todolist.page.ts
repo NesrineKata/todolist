@@ -17,15 +17,13 @@ export class TodolistPage implements OnInit {
   userEmail: string;
   
   constructor(
-    private navCtrl: NavController,
+   private navCtrl: NavController,
 
     public afDB: AngularFireDatabase, private authService: AuthenticateService
-
   ) {
-    const date = new Date();
+   const date = new Date();
     //const options = { weekday: 'long', month: 'long', day: 'numeric' };
     this.currentDate = date.toLocaleDateString('fr-FR',{ weekday: 'long', month: 'long', day: 'numeric' });
-
   }
 ngOnInit(){
   this.authService.userDetails().subscribe(res => {
@@ -39,7 +37,9 @@ ngOnInit(){
     console.log('err', err);
   })
   this.getTasks();
+
 }
+
 logout() {
   this.authService.logoutUser()
     .then(res => {
@@ -89,5 +89,4 @@ logout() {
   deleteTask(task: any) {
     this.afDB.list('Tasks/').remove(task.key);
   }
-
 }
