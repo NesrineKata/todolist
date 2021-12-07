@@ -10,21 +10,14 @@ import { NavController } from '@ionic/angular';
 })
 export class TodolistPage implements OnInit {
 
-  currentDate: string;
-  addTask: boolean;
   tasks = [];
-  myTask = '';
   userEmail: string;
   
   constructor(
    private navCtrl: NavController,
 
     public afDB: AngularFireDatabase, private authService: AuthenticateService
-  ) {
-   const date = new Date();
-    //const options = { weekday: 'long', month: 'long', day: 'numeric' };
-    this.currentDate = date.toLocaleDateString('fr-FR',{ weekday: 'long', month: 'long', day: 'numeric' });
-  }
+  ) {}
 ngOnInit(){
   this.authService.userDetails().subscribe(res => {
     console.log('res', res);
@@ -39,7 +32,6 @@ ngOnInit(){
   this.getTasks();
 
 }
-
 logout() {
   this.authService.logoutUser()
     .then(res => {
@@ -50,21 +42,7 @@ logout() {
       console.log(error);
     })
 }
-  showForm() {
-    this.addTask = !this.addTask;
-    this.myTask = '';
-  }
-
-  addTaskToFirebase() {
-    this.afDB.list('Tasks/').push({
-      text: this.myTask,
-      email:this.userEmail,
-      date: new Date().toISOString(),
-      checked: false
-    });
-    this.showForm();
-  }
-
+  //Get list of tasks to update badge of current user
   getTasks() {
     this.afDB.list('Tasks/').snapshotChanges(['child_added', 'child_removed']).subscribe(actions => {
       this.tasks = [];
@@ -79,14 +57,5 @@ logout() {
         });
       });
     });
-  }
-
-  changeCheckState(ev: any) {
-    console.log('checked: ' + ev.checked);
-    this.afDB.object('Tasks/' + ev.key + '/checked/').set(ev.checked);
-  }
-
-  deleteTask(task: any) {
-    this.afDB.list('Tasks/').remove(task.key);
   }
 }

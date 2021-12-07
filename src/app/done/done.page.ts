@@ -40,16 +40,6 @@ ngOnInit(){
   })
   this.getTasks();
 }
-logout() {
-  this.authService.logoutUser()
-    .then(res => {
-      console.log(res);
-      this.navCtrl.navigateBack('');
-    })
-    .catch(error => {
-      console.log(error);
-    })
-}
   showForm() {
     this.addTask = !this.addTask;
     this.myTask = '';
@@ -64,7 +54,7 @@ logout() {
     });
     this.showForm();
   }
-
+//get list of checked tasks of current user
   getTasks() {
     this.afDB.list('Tasks/').snapshotChanges(['child_added', 'child_removed']).subscribe(actions => {
       this.tasks = [];
@@ -81,7 +71,17 @@ logout() {
       console.log(this.tasks);
     });
   }
-
+  logout() {
+    this.authService.logoutUser()
+      .then(res => {
+        console.log(res);
+        this.navCtrl.navigateBack('');
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
+  //update checked task
   changeCheckState(ev: any) {
     console.log('checked: ' + ev.checked);
     this.afDB.object('Tasks/' + ev.key + '/checked/').set(ev.checked);

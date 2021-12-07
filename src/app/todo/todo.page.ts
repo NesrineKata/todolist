@@ -25,7 +25,6 @@ export class TodoPage implements OnInit {
     const date = new Date();
     //const options = { weekday: 'long', month: 'long', day: 'numeric' };
     this.currentDate = date.toLocaleDateString('fr-FR',{ weekday: 'long', month: 'long', day: 'numeric' });
-
   }
 ngOnInit(){
   this.authService.userDetails().subscribe(res => {
@@ -40,21 +39,21 @@ ngOnInit(){
   })
   this.getTasks();
 }
-logout() {
-  this.authService.logoutUser()
-    .then(res => {
-      console.log(res);
-      this.navCtrl.navigateBack('');
-    })
-    .catch(error => {
-      console.log(error);
-    })
-}
   showForm() {
     this.addTask = !this.addTask;
     this.myTask = '';
   }
-
+  logout() {
+    this.authService.logoutUser()
+      .then(res => {
+        console.log(res);
+        this.navCtrl.navigateBack('');
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
+//add new task for current user
   addTaskToFirebase() {
     this.afDB.list('Tasks/').push({
       text: this.myTask,
@@ -64,7 +63,7 @@ logout() {
     });
     this.showForm();
   }
-
+//get list of tasks of current user
   getTasks() {
     this.afDB.list('Tasks/').snapshotChanges(['child_added', 'child_removed']).subscribe(actions => {
       this.tasks = [];
@@ -81,7 +80,7 @@ logout() {
       console.log(this.tasks);
     });
   }
-
+  //update checked task
   changeCheckState(ev: any) {
     console.log('checked: ' + ev.checked);
     this.afDB.object('Tasks/' + ev.key + '/checked/').set(ev.checked);
